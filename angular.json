@@ -2,5 +2,169 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ng-progress-ring": {
+      "root": "projects/ng-progress-ring",
+      "sourceRoot": "projects/ng-progress-ring/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-progress-ring/tsconfig.lib.json",
+            "project": "projects/ng-progress-ring/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-progress-ring/src/test.ts",
+            "tsConfig": "projects/ng-progress-ring/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-progress-ring/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-progress-ring/tsconfig.lib.json",
+              "projects/ng-progress-ring/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-progress-ring-showcase": {
+      "root": "projects/ng-progress-ring-showcase/",
+      "sourceRoot": "projects/ng-progress-ring-showcase/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ng-progress-ring-showcase",
+            "index": "projects/ng-progress-ring-showcase/src/index.html",
+            "main": "projects/ng-progress-ring-showcase/src/main.ts",
+            "polyfills": "projects/ng-progress-ring-showcase/src/polyfills.ts",
+            "tsConfig": "projects/ng-progress-ring-showcase/tsconfig.app.json",
+            "assets": [
+              "projects/ng-progress-ring-showcase/src/favicon.ico",
+              "projects/ng-progress-ring-showcase/src/assets"
+            ],
+            "styles": [
+              "projects/ng-progress-ring-showcase/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ng-progress-ring-showcase/src/environments/environment.ts",
+                  "with": "projects/ng-progress-ring-showcase/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ng-progress-ring-showcase:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-progress-ring-showcase:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ng-progress-ring-showcase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-progress-ring-showcase/src/test.ts",
+            "polyfills": "projects/ng-progress-ring-showcase/src/polyfills.ts",
+            "tsConfig": "projects/ng-progress-ring-showcase/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-progress-ring-showcase/karma.conf.js",
+            "styles": [
+              "projects/ng-progress-ring-showcase/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ng-progress-ring-showcase/src/favicon.ico",
+              "projects/ng-progress-ring-showcase/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-progress-ring-showcase/tsconfig.app.json",
+              "projects/ng-progress-ring-showcase/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-progress-ring-showcase-e2e": {
+      "root": "projects/ng-progress-ring-showcase-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ng-progress-ring-showcase-e2e/protractor.conf.js",
+            "devServerTarget": "ng-progress-ring-showcase:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ng-progress-ring-showcase:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/ng-progress-ring-showcase-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ng-progress-ring"
 }
